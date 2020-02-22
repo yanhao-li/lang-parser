@@ -1,24 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 #define CSVNAME "lang.csv"
-
-FILE *readCsv();
-void parseCsv(FILE *csvptr);
-int countCsvRows(FILE *csvptr);
-int countCsvColumns(FILE *csvptr);
-
-int main() {
-
-  FILE *csvptr = readCsv();
-
-  parseCsv(csvptr);
-
-  printf("\nSuccessed!");
-
-  fclose(csvptr);
-
-  return 0;
-}
 
 /* Read the csv file and return file stream */
 FILE *readCsv()
@@ -43,12 +26,10 @@ void parseCsv(FILE *csvptr)
   int columnsCount = countCsvColumns(csvptr);
 
   while((c = getc(csvptr)) != EOF) {
-    // printf("%c", c);
+    printf("%c", c);
   }
 
-  rewind(csvptr);
-
-  // printf("\nTotally rows: %d", rowsCount);
+  printf("\nTotally rows: %d", rowsCount);
   printf("\nTotally columns: %d", columnsCount);
 }
 
@@ -85,4 +66,3 @@ int countCsvColumns(FILE *csvptr)
   rewind(csvptr);
   return columnsCount + 1;
 }
-

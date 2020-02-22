@@ -8,7 +8,7 @@ int main() {
 
   parseCsv(csvptr);
 
-  printf("\nSuccessed!");
+  printf("Successed!");
 
   fclose(csvptr);
 

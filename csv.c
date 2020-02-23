@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
-#define CSVNAME "lang.csv"
 
 /* Read the csv file and return file stream */
-FILE *readCsv()
+FILE *readCsv(const char csvPath[])
 {
   FILE *csvptr;
 
-  csvptr = fopen(CSVNAME, "r");
+  csvptr = fopen(csvPath, "r");
 
   if (!csvptr) {
     fprintf(stderr, "Can't open csv file. \n");
@@ -21,17 +20,33 @@ FILE *readCsv()
 /* handleCsv file */
 void parseCsv(FILE *csvptr)
 {
-  int c;
   int rowsCount = countCsvRows(csvptr);
   int columnsCount = countCsvColumns(csvptr);
 
-  while((c = getc(csvptr)) != EOF) {
-    printf("%c", c);
-  }
+
+  printCsv(csvptr);
 
   printf("\nTotally rows: %d", rowsCount);
   printf("\nTotally columns: %d", columnsCount);
 }
+
+void printCsv(FILE *csvptr)
+{
+  char *line = NULL;
+  size_t len = 0;
+
+  while((getline(&line, &len, csvptr)) != -1) {
+    printf("%s", line);
+  }
+
+  free(line);
+  exit(EXIT_SUCCESS);
+}
+
+
+
+
+
 
 int countCsvRows(FILE *csvptr)
 {
@@ -42,7 +57,7 @@ int countCsvRows(FILE *csvptr)
     return 0;
 
   while(c != EOF) {
-    if (c == '\n') {
+    if (c == '\r') {
       rowsCount++;
     }
     c = getc(csvptr);

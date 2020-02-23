@@ -3,14 +3,13 @@
 #include "main.h"
 
 int main() {
-
-  FILE *csvptr = readCsv();
+  static const char csvPath[] = "./lang.csv";
+  FILE *csvptr = readCsv(csvPath);
 
   parseCsv(csvptr);
 
   printf("\nSuccessed!");
 
   fclose(csvptr);
-
   return 0;
 }
